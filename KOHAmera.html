@@ -1,0 +1,138 @@
+<html>
+	<head>
+		<title>KOHAmera</title>
+		<!--version 2.0.1 updated 10/24/2018-->
+		<!--===========================================================================================
+		CREDITS
+		-----------------------------------------------------------------------------------------------
+		Previously called Samera
+		Written by Sam Switzer
+		With help from Anna, Cornelia, Katlin, Kristi, Lee, and the rest of the SPL Circulation staff.
+		Icons provided by Iconic https://useiconic.com/open
+		Script help by 
+		http://youmightnotneedjquery.com/
+		https://www.kirupa.com/canvas/follow_mouse_cursor.htm
+		and other sites helped with previous versions before the rewrite
+		============================================================================================-->
+		<!--<script src="http://code.jquery.com/jquery-latest.min.js"></script>-->
+		<style>
+			:root{--clr1:#bfbfbf;--clr2:#434343;}
+			*,::after,::before{box-sizing:border-box}
+			sup{position:relative;bottom:30px}
+			.outerImageContainer{ margin: 0;}  
+			.innerImageContainer{ width: 640px; height: 480px; position: relative; }  
+			.coveredImage{ width: 640px; height: 480px; position: absolute; top: 0px; left: 0px;}  
+			.coveringCanvas{ width: 640px; height: 480px; position: absolute; top: 0px; left: 0px;}  
+			.resultwrapper, .button{grid-column-gap:10px;grid-row-gap:10px;}
+			.resultwrapper{display:grid;grid-template-columns:[left] 200px [leftend] auto [right];grid-template-rows:[top] auto [mid] auto [end];background:var(--clr1);width:640px;padding:10px;border-top:5px solid var(--clr2);}
+			.resultwrapper a{text-decoration:none;color:var(--clr2)}
+			.button{display:grid;grid-template-columns:[lft] 120px [ctr] auto; background:rgba(0,0,0,0.3);padding:10px;font:bold 52px Sans-Serif;align-items:center}
+			.button:hover{text-decoration:underline;}
+			.button svg{height:120px;width:120px;grid-column-start:lft;grid-column-end:ctr;}
+			.button span{grid-column-start:ctr;}
+			.icon,.logo{fill:var(--clr2);height:50px}
+			.txt{position:relative;bottom:4px;font:bold 52px Sans-Serif;color:var(--clr2)}
+			.resultwrapper>p{font:normal 12px Sans-Serif;color:var(--clr2)}
+			#output{grid-column-start:left;grid-column-end:leftend;grid-row-start:top;grid-row-end:end;z-index:999;}
+			#outputsvg{grid-column-start:left;grid-column-end:leftend;grid-row-start:top;grid-row-end:end;fill:var(--clr2);width:200px;height:300px}
+			#info{grid-column-start:leftend;grid-column-end:right;grid-row-start:top;grid-row-end:mid;}
+			#download{height:140px;align-self:end;grid-column-start:leftend;grid-column-end:right;grid-row-start:mid;grid-row-end:end;}
+			
+		</style>
+	</head>
+	<body>
+		<div id="div_outer" class="outerImageContainer" style="width:640px;height:480px;">  
+			<div id="div_inner" class="innerImageContainer">  
+				<!--<canvas id="panel" class="cropimage coveringCanvas" style="z-index:999;" width="640" height="480" cropwidth="200" cropheight="300"></canvas>-->
+				<canvas id="panel" class="coveringCanvas" style="z-index: 999;" width="640px" height="480px" ></canvas>  
+				<video id="video" onplaying="startDrawing()" onsuspend="stopDrawing()" class="coveredImage" autoplay></video>  
+			</div>  
+		</div>
+		<div class="resultwrapper">
+			<img id="output"/>
+			<svg id="outputsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.917 79.375">
+				<path d="M.53.522v13.244h2.65V3.174h10.593V.522H.53zm38.62 0v2.65h10.593v10.593h2.652V.522H39.15zM.53 65.608v13.244h13.244V76.2H3.18V65.608H.53zm49.212 0V76.2H39.15v2.65h13.244V65.608h-2.652zM17.344 24.63h2.54l4.1 8.443-.182.197v-8.64h1.986v11.012h-2.554l-4.085-8.314.182-.197v8.5h-1.986zm14.68 11.135q-1.198 0-2.115-.5-.9-.508-1.4-1.425-.5-.925-.5-2.137V28.58q0-1.213.5-2.13.5-.925 1.4-1.425.917-.508 2.115-.508 1.198 0 2.107.508.917.5 1.417 1.425.5.917.5 2.13v3.123q0 1.213-.5 2.137-.5.917-1.417 1.425-.9.5-2.107.5zm0-2.077q.56 0 .985-.235.424-.243.652-.682.235-.44.235-1.016v-3.23q0-.576-.235-1.016-.227-.44-.652-.674-.424-.243-.985-.243-.56 0-.985.243-.424.235-.66.674-.227.44-.227 1.016v3.23q0 .576.227 1.016.235.44.66.682.424.235.985.235zm-25.106 21.1H4.765v-11.02h2.152zm9.208-11.02h2.736v11.02h-1.887V46.22l.076.485-2.107 6.844H13.1l-2.107-6.693.076-.637v8.557H9.192v-11.02h2.736l2.1 7.428zm8.314-.01h1.32l4.214 11.02h-2.236L25.1 47.252l-2.638 7.526h-2.236zm-2.2 7.253h5.798v2H22.25zm16.738-2.395v2.152q0 1.228-.5 2.168-.493.932-1.402 1.448-.9.508-2.107.508-1.205 0-2.13-.477-.917-.485-1.425-1.364-.5-.88-.5-2.04v-3.25q0-1.228.493-2.16.5-.932 1.4-1.44.9-.515 2.107-.515.985 0 1.82.4.834.402 1.387 1.144.56.743.758 1.72h-2.243q-.114-.35-.38-.6-.258-.258-.614-.387-.35-.136-.728-.136-.553 0-.978.242-.417.243-.652.7-.227.447-.227 1.03v3.25q0 .515.235.9.235.394.667.606.432.212 1 .212.56 0 .978-.227.424-.235.652-.675.227-.44.227-1.038v-.182H35.15v-2zm2.198-4.858h2.077v11.02h-2.077zm.75 9.02h6.632v2h-6.632zm0-4.472h5.798v2h-5.798zm0-4.547h6.632v2h-6.632z"/>
+			</svg>
+			<p>
+				<svg class="logo" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 15">
+					<path d="M5.336 1.032C6.068.624 6.9.4 7.738.356c.44.02.885.07 1.3.248.818.307 1.495.933 1.918 1.692.47.776.676 1.678.775 2.57.217 2.955-.878 5.923-2.745 8.194-.734.734-1.64 1.357-2.677 1.548-.86.123-1.788-.06-2.48-.603-.428-.323-.6-.885-.565-1.404.38.536 1 .907 1.664.922.6.03 1.198-.246 1.602-.684.68-.733.747-1.97.1-2.75-.3-.338-.63-.642-1.025-.856-.382-.233-.84-.333-1.3-.395-.834-.053-1.698.098-2.432.508C1.17 9.75.648 10.468.485 11.27c-.167.623-.107 1.274-.04 1.906-.273-.723-.383-1.492-.442-2.26v-.56C.1 7.554 1.266 4.82 3.145 2.748 3.8 2.08 4.5 1.467 5.336 1.032zm9.716.52c.984.02 1.976-.005 2.935-.25l-2.174 7.562c.086-.06.168-.125.247-.194l2.653-2.4c.417-.346.847-.73 1.396-.84.25-.062.547-.047.744.14.455.404.4 1.202-.05 1.587-.24.222-.603.255-.908.172-.255-.063-.385-.317-.606-.437-.35-.012-.653.217-.917.423L16.73 8.723c-.013.073.06.135.085.202l1.663 2.983c.197.326.4.67.725.885.177.126.428.096.588-.044a2.4 2.4 0 0 0 .65-.936h.507c-.223.57-.48 1.14-.883 1.608-.278.345-.684.642-1.146.63-.392.015-.752-.206-1.008-.486-.415-.472-.7-1.037-1.008-1.58l-1.3-2.336-1.154 4.144c-.46-.002-.918 0-1.377-.001l2.705-9.662c.14-.528.342-1.054.332-1.608.007-.203-.126-.4-.33-.45-.278-.062-.566-.02-.85-.03l.13-.487zM27.1 5.4a3.66 3.66 0 0 0-.408.029 3.7 3.7 0 0 0-1.388.44c-.895.5-1.55 1.34-2.015 2.237a5.78 5.78 0 0 0-.555 3.453c.13.857.584 1.696 1.342 2.15.615.374 1.374.4 2.067.285.83-.125 1.586-.562 2.182-1.143.5-.53.93-1.15 1.213-1.83.387-.958.525-2.022.383-3.047-.1-.797-.496-1.576-1.143-2.07-.48-.362-1.082-.507-1.677-.502zm.063.477c.312-.013.626.06.86.276.355.328.458.83.512 1.3.076 1.075-.098 2.158-.437 3.178-.242.702-.53 1.4-.973 2-.34.473-.848.856-1.435.946-.387.056-.824-.018-1.107-.308-.37-.353-.445-.893-.5-1.377-.055-1.207.196-2.417.66-3.53.23-.57.503-1.132.9-1.614.3-.352.655-.666 1.102-.793a1.87 1.87 0 0 1 .417-.068zm6.46-4.322c.978.012 1.967.006 2.92-.25l-1.756 6.24c.5-.66 1.02-1.325 1.744-1.74.54-.32 1.193-.485 1.817-.363.445.085.858.375 1.05.792.156.325.17.697.13 1.05-.095.95-.5 1.826-.803 2.717l-.8 2.243c-.085.297-.206.613-.12.924.07.224.352.245.538.167a1.34 1.34 0 0 0 .495-.414c.272-.352.506-.74.617-1.175l.548-.001c-.166.743-.55 1.454-1.156 1.928-.445.354-1.068.48-1.6.3-.466-.16-.76-.646-.775-1.126-.033-.505.132-.993.276-1.47l.906-2.457c.3-.747.594-1.518.595-2.332a.49.49 0 0 0-.387-.49c-.55-.096-1.1.138-1.524.474-.6.474-1.04 1.12-1.402 1.786-.575.98-.927 2.066-1.225 3.156l-.654 2.275H31.65l1.944-6.97 1.028-3.737c.053-.26.175-.532.078-.798-.022-.14-.165-.2-.294-.223-.304-.047-.613-.015-.918-.023l.148-.485zM45.73 5.397l-.1.003c-.82.02-1.6.393-2.175.967-.663.664-1.13 1.503-1.458 2.377a6.32 6.32 0 0 0-.297 2.947c.12.76.43 1.54 1.06 2.02.516.385 1.214.4 1.816.25.844-.23 1.517-.864 1.995-1.575.03.465.1.96.42 1.327.295.336.795.413 1.207.278.388-.123.707-.4.953-.718.4-.493.667-1.083.845-1.7a16.79 16.79 0 0 0-.496.003c-.137.533-.423 1.015-.74 1.46-.174.198-.377.475-.677.426-.203-.05-.276-.284-.296-.468-.044-.54.048-1.08.195-1.598L49.62 5.67c-.468-.001-.935 0-1.403-.001l-.503 1.745c-.008-.548-.24-1.085-.634-1.465-.348-.364-.852-.552-1.35-.55zm.15.677c.292-.01.588.063.8.262.356.32.47.816.525 1.273.132 1.5-.27 2.986-.962 4.297-.316.577-.75 1.155-1.397 1.374-.394.132-.872.148-1.232-.084-.42-.265-.516-.8-.557-1.257-.04-.85.083-1.705.294-2.527.243-.864.542-1.734 1.075-2.467.284-.4.68-.725 1.16-.834a1.69 1.69 0 0 1 .287-.036z" stroke-width=".006"/>
+				</svg>
+				<span class="txt">mera</span><sup>&nbsp;v2.0.1</sup>
+			</p>
+			<a href="#" class="button" id="download" download>
+				<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
+					<path d="M3 0v3h-2l3 3 3-3h-2v-3h-2zm-3 7v1h8v-1h-8z" />
+				</svg>
+				<span>Download</span>
+			</a>
+		</div>
+	<script>
+		var canvas = document.getElementById('panel');
+		var context = canvas.getContext("2d");
+		var video = document.getElementById('video');
+		var output = document.getElementById('output');
+		var download = document.getElementById('download');
+		var canvasPos = getPosition(canvas);
+		var selectionX = 200;
+		var selectionY = 300;
+		var mouseX = 220;
+		var mouseY = 90;
+		var constraints = {video:true};
+		navigator.mediaDevices.getUserMedia(constraints)
+		.then(function(mediaStream) {
+			var video = document.querySelector('video');
+			video.srcObject = mediaStream;
+			video.onloadedmetadata = function(e) {
+				video.play();
+			};
+		})
+		.catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end. 
+		//get rough position of mouse
+		canvas.addEventListener("mousemove", setMousePosition, false);
+		canvas.addEventListener("click", getResult, false);
+		function setMousePosition(e) {
+			mouseX = e.clientX - canvasPos.x - selectionX; //number sets mouse offset
+			mouseY = e.clientY - canvasPos.y - selectionY + 15; //number sets mouse offset
+		}
+		//draw selection rectangle
+		function update() {
+			context.clearRect(0, 0, canvas.width, canvas.height); //clear previously drawn rectangles
+			context.strokeStyle = '#f00'; //set stroke color
+			context.lineWidth = 2;
+			context.strokeRect(mouseX, mouseY, selectionX, selectionY); //set selection size
+			
+			requestAnimationFrame(update);
+		}
+		update();
+		// Trigger photo take
+		function getResult() {
+			var temp_context, temp_canvas;
+			temp_canvas = document.createElement('canvas');
+			temp_context = temp_canvas.getContext('2d');
+			temp_canvas.width = selectionX;
+			temp_canvas.height = selectionY;
+			temp_context.drawImage(video, mouseX, mouseY, selectionX, selectionY, 0, 0, selectionX, selectionY);
+			var vData = temp_canvas.toDataURL();
+			output.setAttribute('src', vData);
+			download.setAttribute('href', vData); //sets link to download button
+			//$('#output').attr('src', vData); requires jQuery
+		}
+
+		//get fine position of mouse
+		function getPosition(el) {
+			var xPosition = 0;
+			var yPosition = 0;
+ 
+			while (el) {
+				xPosition += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+				yPosition += (el.offsetTop - el.scrollTop + el.clientTop);
+				el = el.offsetParent;
+			}
+			return {
+				x: xPosition,
+				y: yPosition
+			};
+		}
+	</script>
+	</body>
+</html>
