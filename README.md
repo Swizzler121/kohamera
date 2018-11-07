@@ -6,6 +6,7 @@ FEATURES
 * Simple user interface
 * Static capture size (adjustable in source)
 * Dynamic capture area by moving mouse
+* Automatically Adjusts quality settings to hit target filesize (adjustable in source)
 
 ROADMAP
 ===========
