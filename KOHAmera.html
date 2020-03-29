@@ -24,9 +24,8 @@
 			*,::after,::before{box-sizing:border-box}
 			sup{position:relative;bottom:10px;right:5px;}
 			.outerImageContainer{ margin: 0;}  
-			.innerImageContainer{ width: 640px; height: 480px; position: relative; }  
-			.coveredImage{ width: 640px; height: 480px; position: absolute; top: 0px; left: 0px;}  
-			.coveringCanvas{ width: 640px; height: 480px; position: absolute; top: 0px; left: 0px;}  
+			.innerImageContainer{ height: 480px; position: relative; }  
+			.coveringCanvas{ height: 480px; position: absolute; top: 0px; left: 0px;}  
 			.resultwrapper, .button{grid-column-gap:10px;grid-row-gap:10px;}
 			.resultwrapper{display:grid;grid-template-columns:[left] 200px [leftend] auto [right];grid-template-rows:[top] 150px [mid] auto [end];background:var(--clr1);width:640px;padding:10px;border-top:5px solid var(--clr2);}
 			.resultwrapper a{text-decoration:none;color:var(--clr2)}
@@ -50,10 +49,10 @@
 		</style>
 	</head>
 	<body>
-		<div id="div_outer" class="outerImageContainer" style="width:640px;height:480px;">  
+		<div id="div_outer" class="outerImageContainer" style="height:480px;">  
 			<div id="div_inner" class="innerImageContainer">  
 				<!--<canvas id="panel" class="cropimage coveringCanvas" style="z-index:999;" width="640" height="480" cropwidth="200" cropheight="300"></canvas>-->
-				<canvas id="panel" class="coveringCanvas" style="z-index: 999;" width="640px" height="480px"></canvas>  
+				<canvas id="panel" class="coveringCanvas" style="z-index: 999;" height="480px"></canvas>  
 				<video id="video" autoplay="autoplay"></video>  
 			</div>  
 			<p id="logo">
@@ -68,7 +67,7 @@
 			<svg id="outputsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.917 79.375">
 				<path d="M.53.522v13.244h2.65V3.174h10.593V.522H.53zm38.62 0v2.65h10.593v10.593h2.652V.522H39.15zM.53 65.608v13.244h13.244V76.2H3.18V65.608H.53zm49.212 0V76.2H39.15v2.65h13.244V65.608h-2.652zM17.344 24.63h2.54l4.1 8.443-.182.197v-8.64h1.986v11.012h-2.554l-4.085-8.314.182-.197v8.5h-1.986zm14.68 11.135q-1.198 0-2.115-.5-.9-.508-1.4-1.425-.5-.925-.5-2.137V28.58q0-1.213.5-2.13.5-.925 1.4-1.425.917-.508 2.115-.508 1.198 0 2.107.508.917.5 1.417 1.425.5.917.5 2.13v3.123q0 1.213-.5 2.137-.5.917-1.417 1.425-.9.5-2.107.5zm0-2.077q.56 0 .985-.235.424-.243.652-.682.235-.44.235-1.016v-3.23q0-.576-.235-1.016-.227-.44-.652-.674-.424-.243-.985-.243-.56 0-.985.243-.424.235-.66.674-.227.44-.227 1.016v3.23q0 .576.227 1.016.235.44.66.682.424.235.985.235zm-25.106 21.1H4.765v-11.02h2.152zm9.208-11.02h2.736v11.02h-1.887V46.22l.076.485-2.107 6.844H13.1l-2.107-6.693.076-.637v8.557H9.192v-11.02h2.736l2.1 7.428zm8.314-.01h1.32l4.214 11.02h-2.236L25.1 47.252l-2.638 7.526h-2.236zm-2.2 7.253h5.798v2H22.25zm16.738-2.395v2.152q0 1.228-.5 2.168-.493.932-1.402 1.448-.9.508-2.107.508-1.205 0-2.13-.477-.917-.485-1.425-1.364-.5-.88-.5-2.04v-3.25q0-1.228.493-2.16.5-.932 1.4-1.44.9-.515 2.107-.515.985 0 1.82.4.834.402 1.387 1.144.56.743.758 1.72h-2.243q-.114-.35-.38-.6-.258-.258-.614-.387-.35-.136-.728-.136-.553 0-.978.242-.417.243-.652.7-.227.447-.227 1.03v3.25q0 .515.235.9.235.394.667.606.432.212 1 .212.56 0 .978-.227.424-.235.652-.675.227-.44.227-1.038v-.182H35.15v-2zm2.198-4.858h2.077v11.02h-2.077zm.75 9.02h6.632v2h-6.632zm0-4.472h5.798v2h-5.798zm0-4.547h6.632v2h-6.632z"></path>
 			</svg>
-			<pre id="log">File Size should not exceed 90Kb<br></pre>
+			<pre id="log"></pre>
 			<a href="#" class="button" id="download" download="">
 				<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
 					<path d="M3 0v3h-2l3 3 3-3h-2v-3h-2zm-3 7v1h8v-1h-8z"></path>
@@ -80,7 +79,7 @@
 		//Output console log to HTML - Thanks to - https://stackoverflow.com/questions/20256760/javascript-console-log-to-html
 		(function () {
 			var old = console.log;
-			var logger = document.getElementById('log');
+			let logger = document.getElementById('log');
 			console.log = function () {
 			  for (var i = 0; i < arguments.length; i++) {
 				if (typeof arguments[i] == 'object') {
@@ -92,18 +91,24 @@
 			}
 		})();
 		//Start of video output
-		var canvas = document.getElementById('panel');
-		var context = canvas.getContext("2d");
-		var video = document.getElementById('video');
-		var output = document.getElementById('output');
-		var download = document.getElementById('download');
-		var canvasPos = getPosition(canvas);
-		var selectionX = 200;
-		var selectionY = 300;
-		var mouseX = 220;
-		var mouseY = 90;
-		var constraints = {video:true};
-		navigator.mediaDevices.getUserMedia(constraints)
+		var canvas = document.getElementById('panel'),
+			context = canvas.getContext("2d"),
+			video = document.getElementById('video'),
+			output = document.getElementById('output'),
+			download = document.getElementById('download'),
+			selectionX = 200,
+			selectionY = 300,
+			mouseX = 220,
+			mouseY = 90,
+			//filesize target in Kb
+			targetsize = 90;
+		let canvasPos = getPosition(canvas);
+		navigator.mediaDevices.getUserMedia({
+			video: {
+				height: {min:480, ideal:480},
+				aspectRatio: {min:1.3333333334, ideal: 1.7777777778}
+			}
+		})
 		.then(function(mediaStream) {
 			var video = document.querySelector('video');
 			video.srcObject = mediaStream;
@@ -144,22 +149,24 @@
 		// Trigger photo take
 		function getResult() {
 			console.time('render')
-			var temp_context, temp_canvas;
+			let temp_context, temp_canvas;
 			today = new Date();
-			var s = ('0'+today.getSeconds()).substr(-2);
-			var m = ('0'+today.getMinutes()).substr(-2);
-			var h = ('0'+today.getHours()).substr(-2); 
-			var d = today.getDate()
-			var n = today.getMonth()+1
-			var y = today.getFullYear()
+			let s = ('0'+today.getSeconds()).substr(-2);
+			let m = ('0'+today.getMinutes()).substr(-2);
+			let h = ('0'+today.getHours()).substr(-2); 
+			let d = today.getDate()
+			let n = today.getMonth()+1
+			let y = today.getFullYear()
 			temp_canvas = document.createElement('canvas');
 			temp_context = temp_canvas.getContext('2d');
 			temp_canvas.width = selectionX;
 			temp_canvas.height = selectionY;
 			temp_context.drawImage(video, mouseX, mouseY, selectionX, selectionY, 0, 0, selectionX, selectionY);
 			//Burn date & time into downloaded image
+			temp_context.globalCompositeOperation = "difference";
+			temp_context.fillStyle = "cyan";
 			temp_context.fillText((h + ":" + m + ":" + s + " " + n + "/" + d + "/" + y), 2, 10);
-			var q = 1.00
+			let q = 1.00
 			var vData = temp_canvas.toDataURL('image/jpeg', q);
 			output.setAttribute('src', vData);
 			download.setAttribute('href', vData); //sets link to download button
@@ -169,7 +176,7 @@
 			var sizeInBytes = Math.round((vData.length - 'data:image/jpeg;base64,'.length)*3/4);
 			var sizeInKb = Math.round((sizeInBytes/1024));
 			//checks file size, reports it, then starts a while loop to incrementally decrease quality until target filesize is hit.
-			while (sizeInKb > 90){ //Adjusted to 90Kb as images that large seem to have issues
+			while (sizeInKb > targetsize){ //Adjusted to 90Kb as images that large seem to have issues
 				console.log('File Size ' + sizeInKb + 'Kb -- Too Large! Decreasing quality');
 				var vData = temp_canvas.toDataURL('image/jpeg', q);
 				download.setAttribute('href', vData); //sets link to download button
@@ -177,18 +184,18 @@
 				var sizeInKb = Math.round((sizeInBytes/1024));
 				q = q-0.01;
 			}
-			var qround = Math.ceil(q * 100);
+			let qround = Math.ceil(q * 100);
 			console.log('File Size ' + sizeInKb + 'Kb at ' + qround + '% quality');
 			console.timeEnd('render')
 		}
 		//Announce image requirements
 		window.addEventListener("DOMContentLoaded", function() {
-			console.log('File Size should not exceed 90Kb')
+			console.log('File Size should not exceed ' + targetsize +'Kb');
 		}, false);
 		// Create an observer and pass it a callback.
-		var observer = new MutationObserver(scrollToBottom);
+		let observer = new MutationObserver(scrollToBottom);
 		// Tell it to look for new children that will change the height.
-		var config = {childList: true};
+		let config = {childList: true};
 		observer.observe(log, config);
 		function scrollToBottom() {
 			log.scrollTop = log.scrollHeight;
