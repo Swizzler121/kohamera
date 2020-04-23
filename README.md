@@ -13,8 +13,8 @@ ROADMAP
 ===========
 1. Initial release
 2. Code optimization
-3. Clear results area when result is downloaded
-3. Dynamic video area size (currently fixed size at 640 x 480)
+3. Clear results area when result is downloaded - In development
+3. Dynamic video area size - Working in Chrome!
 3. Optional feature - dynamic capture size on page
 4. Optional feature - Results area hidden until capture is taken
 5. Optional feature - scale capture area to window size
