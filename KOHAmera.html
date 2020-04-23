@@ -15,6 +15,7 @@
 		http://youmightnotneedjquery.com/
 		https://www.kirupa.com/canvas/follow_mouse_cursor.htm
 		https://medium.com/@heatherbooker/how-to-auto-scroll-to-the-bottom-of-a-div-415e967e7a24 < Div Autoscroll
+		https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos < Video Width/Height Detection
 		and other sites helped with previous versions before the rewrite
 		============================================================================================-->
 		<link rel="shortcut icon" type="image/png" href="data:image/png;base64,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">
@@ -52,7 +53,7 @@
 		<div id="div_outer" class="outerImageContainer" style="height:480px;">  
 			<div id="div_inner" class="innerImageContainer">  
 				<!--<canvas id="panel" class="cropimage coveringCanvas" style="z-index:999;" width="640" height="480" cropwidth="200" cropheight="300"></canvas>-->
-				<canvas id="panel" class="coveringCanvas" style="z-index: 999;" height="480px"></canvas>  
+				<canvas id="panel" class="coveringCanvas" style="z-index: 999;" height=""></canvas>  
 				<video id="video" autoplay="autoplay"></video>  
 			</div>  
 			<p id="logo">
@@ -63,12 +64,12 @@
 			</p>
 		</div>
 		<div class="resultwrapper">
-			<img id="output">
+			<img id="output" />
 			<svg id="outputsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.917 79.375">
 				<path d="M.53.522v13.244h2.65V3.174h10.593V.522H.53zm38.62 0v2.65h10.593v10.593h2.652V.522H39.15zM.53 65.608v13.244h13.244V76.2H3.18V65.608H.53zm49.212 0V76.2H39.15v2.65h13.244V65.608h-2.652zM17.344 24.63h2.54l4.1 8.443-.182.197v-8.64h1.986v11.012h-2.554l-4.085-8.314.182-.197v8.5h-1.986zm14.68 11.135q-1.198 0-2.115-.5-.9-.508-1.4-1.425-.5-.925-.5-2.137V28.58q0-1.213.5-2.13.5-.925 1.4-1.425.917-.508 2.115-.508 1.198 0 2.107.508.917.5 1.417 1.425.5.917.5 2.13v3.123q0 1.213-.5 2.137-.5.917-1.417 1.425-.9.5-2.107.5zm0-2.077q.56 0 .985-.235.424-.243.652-.682.235-.44.235-1.016v-3.23q0-.576-.235-1.016-.227-.44-.652-.674-.424-.243-.985-.243-.56 0-.985.243-.424.235-.66.674-.227.44-.227 1.016v3.23q0 .576.227 1.016.235.44.66.682.424.235.985.235zm-25.106 21.1H4.765v-11.02h2.152zm9.208-11.02h2.736v11.02h-1.887V46.22l.076.485-2.107 6.844H13.1l-2.107-6.693.076-.637v8.557H9.192v-11.02h2.736l2.1 7.428zm8.314-.01h1.32l4.214 11.02h-2.236L25.1 47.252l-2.638 7.526h-2.236zm-2.2 7.253h5.798v2H22.25zm16.738-2.395v2.152q0 1.228-.5 2.168-.493.932-1.402 1.448-.9.508-2.107.508-1.205 0-2.13-.477-.917-.485-1.425-1.364-.5-.88-.5-2.04v-3.25q0-1.228.493-2.16.5-.932 1.4-1.44.9-.515 2.107-.515.985 0 1.82.4.834.402 1.387 1.144.56.743.758 1.72h-2.243q-.114-.35-.38-.6-.258-.258-.614-.387-.35-.136-.728-.136-.553 0-.978.242-.417.243-.652.7-.227.447-.227 1.03v3.25q0 .515.235.9.235.394.667.606.432.212 1 .212.56 0 .978-.227.424-.235.652-.675.227-.44.227-1.038v-.182H35.15v-2zm2.198-4.858h2.077v11.02h-2.077zm.75 9.02h6.632v2h-6.632zm0-4.472h5.798v2h-5.798zm0-4.547h6.632v2h-6.632z"></path>
 			</svg>
 			<pre id="log"></pre>
-			<a href="#" class="button" id="download" download="">
+			<a href="#" class="button" id="download" download="" onclick="clearImgData(this);">
 				<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
 					<path d="M3 0v3h-2l3 3 3-3h-2v-3h-2zm-3 7v1h8v-1h-8z"></path>
 				</svg>
@@ -92,6 +93,9 @@
 		})();
 		//Start of video output
 		var canvas = document.getElementById('panel'),
+			ready = false,
+			framewidth = 0,
+			frameheight = 0,
 			context = canvas.getContext("2d"),
 			video = document.getElementById('video'),
 			output = document.getElementById('output'),
@@ -117,6 +121,20 @@
 			};
 		})
 		.catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end. 
+		video.addEventListener('playing', function(ev){
+			if (!ready) {
+				height = video.videoHeight;
+				width = video.videoWidth;
+				//sets default size if width is not detected
+				if (isNaN(height)) {
+					height = width / (4/3);
+				}
+				canvas.setAttribute('width', width);
+				canvas.setAttribute('height', height);
+				ready = true;
+				console.log('Camera Resolution: ' + width + 'x' + height);
+			}
+		}, false);
 		//get rough position of mouse
 		canvas.addEventListener("mousemove", setMousePosition, false);
 		canvas.addEventListener("click", getResult, false);
@@ -149,7 +167,7 @@
 		// Trigger photo take
 		function getResult() {
 			console.time('render')
-			let temp_context, temp_canvas;
+			var temp_context, temp_canvas;
 			today = new Date();
 			let s = ('0'+today.getSeconds()).substr(-2);
 			let m = ('0'+today.getMinutes()).substr(-2);
@@ -157,6 +175,7 @@
 			let d = today.getDate()
 			let n = today.getMonth()+1
 			let y = today.getFullYear()
+			let r = Math.random().toString(36).substring(7); //generates a semi-random string of 5 letters and numbers for a filename
 			temp_canvas = document.createElement('canvas');
 			temp_context = temp_canvas.getContext('2d');
 			temp_canvas.width = selectionX;
@@ -170,7 +189,7 @@
 			var vData = temp_canvas.toDataURL('image/jpeg', q);
 			output.setAttribute('src', vData);
 			download.setAttribute('href', vData); //sets link to download button
-			download.setAttribute('download','capture.jpg')
+			download.setAttribute('download',r + '.jpg')
 			//$('#output').attr('src', vData); requires jQuery
 			//Determine filesize of output - cannot exceed 520Kb according to KOHA, but seems to have issues at ~100Kb. The largest possible size of a 200x300 jpeg image is 240Kb
 			var sizeInBytes = Math.round((vData.length - 'data:image/jpeg;base64,'.length)*3/4);
@@ -188,10 +207,18 @@
 			console.log('File Size ' + sizeInKb + 'Kb at ' + qround + '% quality');
 			console.timeEnd('render')
 		}
+
 		//Announce image requirements
 		window.addEventListener("DOMContentLoaded", function() {
 			console.log('File Size should not exceed ' + targetsize +'Kb');
 		}, false);
+		//Clear stored blob image after download (called in HTML) NOT WORKING YET
+		function clearImgData(link) {
+			link.onclick = function(clear) {
+				download.setAttribute('href','#');
+				output.setAttribute('src','#');
+			}
+		}
 		// Create an observer and pass it a callback.
 		let observer = new MutationObserver(scrollToBottom);
 		// Tell it to look for new children that will change the height.
