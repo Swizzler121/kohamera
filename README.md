@@ -14,7 +14,7 @@ ROADMAP
 1. Initial release
 2. Code optimization
 3. Clear results area when result is downloaded
-3. Dynamic video area size (currently fixed size at 640 x 480)
+3. Dynamic video area size ~~(currently fixed size at 640 x 480)~~ (Currently asks for 480p height video but firefox ignores this, firefox bug, look for workaround)
 3. Optional feature - dynamic capture size on page
 4. Optional feature - Results area hidden until capture is taken
 5. Optional feature - scale capture area to window size
@@ -24,4 +24,6 @@ TODO:
 * Implement rolling result frames
 * Implement selection on result frames
 * Implement confirmation button to choose frame
-* replace convert to file to a blob handoff to server
+* Replace convert to file to a blob handoff to server
+* Replace frame preview to encourage consistent framing of subjects (like a sillouete of a person for the employee to line up)
+* Implement prefrences menu somewhere to set various prefrences.
